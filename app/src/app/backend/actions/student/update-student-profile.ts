@@ -1,8 +1,8 @@
 'use server'
 
 import { z } from 'zod'
-import { prisma } from '@/app/backend/prisma/prisma'
-import { getUserSession } from '@/app/backend/utils/auth-helpers'
+import { prisma } from '@/src/app/backend/prisma/prisma'
+import { getUserSession } from '@/src/app/backend/utils/auth-helpers'
 
 const UpdateStudentProfileSchema = z.object({
   name: z.string().min(1, 'Name is required').max(50),
