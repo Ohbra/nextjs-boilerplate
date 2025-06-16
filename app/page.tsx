@@ -13,9 +13,9 @@ import {
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-// import { getFieldsFromTags } from "../app/backend/actions/fields/get-fields";
-// import { getProfessors } from "../app/backend/actions/professors/get-professors";
-// import { getTopics } from "../app/backend/actions/topics/get-topics";
+import { getFieldsFromTags } from "../app/src/app/backend/actions/fields/get-fields";
+import { getProfessors } from "../app/src/app/backend/actions/professors/get-professors";
+import { getTopics } from "../app/src/app/backend/actions/topics/get-topics";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { useDebouncedValue } from "@/hooks/use-debounced-value";
 import { useDataCache } from "@/hooks/use-data-cache";
