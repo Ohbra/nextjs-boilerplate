@@ -6,14 +6,14 @@ import { ChevronLeft } from "lucide-react";
 import {
   getTopicDetails,
   TopicDetails,
-} from "@/app/backend/actions/topics/get-topic-details";
+} from "@/src/app/backend/actions/topics/get-topic-details";
 
 export default function TopicPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const [topicId, setTopicId] = useState<string>("");
+  // const [topicId, setTopicId] = useState<string>("");
   const [topic, setTopic] = useState<TopicDetails | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -21,7 +21,7 @@ export default function TopicPage({
     async function resolveParamsAndFetchTopic() {
       try {
         const resolvedParams = await params;
-        setTopicId(resolvedParams.id);
+        // setTopicId(resolvedParams.id);
 
         const res = await getTopicDetails(resolvedParams.id);
         if (res.success && res.details) {

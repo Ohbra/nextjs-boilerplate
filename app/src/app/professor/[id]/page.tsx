@@ -1,4 +1,4 @@
-import { getProfessorDetails } from "@/app/backend/actions/professors/get-professor-detail";
+import { getProfessorDetails } from "@/src/app/backend/actions/professors/get-professor-detail";
 import { ProfessorProfile } from "@/components/professor/professor-profile";
 import { notFound } from "next/navigation";
 
