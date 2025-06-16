@@ -3,8 +3,8 @@
 import type React from "react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { updateProfessorProfile } from "@/app/backend/actions/professors/update-profile";
-import type { ProfessorDetails } from "@/app/backend/actions/professors/get-professor-detail";
+import { updateProfessorProfile } from "@/src/app/backend/actions/professors/update-profile";
+import type { ProfessorDetails } from "@/src/app/backend/actions/professors/get-professor-detail";
 import {
   Dialog,
   DialogContent,

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { ProfessorDetails } from "@/app/backend/actions/professors/get-professor-detail";
+import type { ProfessorDetails } from "@/src/app/backend/actions/professors/get-professor-detail";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
