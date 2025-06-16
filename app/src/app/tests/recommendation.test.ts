@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect, beforeEach, vi, MockInstance } from 'vitest'
-import { GET, type Recommendations } from '@/app/backend/api/recommendations/route'
+import { GET, type Recommendations } from '@/src/app/backend/api/recommendations/route'
 import * as prismaModule from '../../app/backend/prisma/prisma' // mocking the actual prisma instance used in route.ts
 
 type StudentReturn = Awaited<ReturnType<typeof prismaModule.prisma.student.findUnique>>

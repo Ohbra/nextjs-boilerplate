@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, test, expect, beforeAll, afterAll } from 'vitest'
 import { prismaTest, cleanupTestResources } from './utils/test-db'
 import '../tests/utils/test-env' 

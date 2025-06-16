@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { prismaTest, cleanupTestResources } from './utils/test-db'
 import { describe, beforeAll, afterAll, it, expect } from 'vitest'
 import '../tests/utils/test-env' 

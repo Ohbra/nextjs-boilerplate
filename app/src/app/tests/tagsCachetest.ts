@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // tests/tagsCache.test.ts
 import { describe, it, expect, beforeAll } from 'vitest'
 import { prismaTest, cleanupTestResources } from './utils/test-db'
