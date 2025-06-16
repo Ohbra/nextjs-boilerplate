@@ -50,7 +50,6 @@
     "vitest": "^3.1.2"
   },
   "prisma": {
-    "schema": "thesium/src/app/backend/prisma/schema.prisma",
-    // "schema": "prisma/schema.prisma"
+    "schema": "thesium/src/app/backend/prisma/schema.prisma"
   }
 }
