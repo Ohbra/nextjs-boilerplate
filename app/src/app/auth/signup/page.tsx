@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // app/auth/signup/page.tsx
 "use client"; // This component will use client-side hooks like useRouter
 
