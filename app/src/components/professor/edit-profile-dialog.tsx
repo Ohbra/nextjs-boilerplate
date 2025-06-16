@@ -69,13 +69,14 @@ export function EditProfileDialog({
           variant: "destructive",
         });
       }
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "An unexpected error occurred",
-        variant: "destructive",
-      });
     } finally {
+      // catch (error) {
+      //   toast({
+      //     title: "Error",
+      //     description: "An unexpected error occurred",
+      //     variant: "destructive",
+      //   });
+      // }
       setIsSubmitting(false);
     }
   };

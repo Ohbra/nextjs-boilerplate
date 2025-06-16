@@ -6,7 +6,7 @@ interface InterestsTagsProps {
 
 export function InterestsTags({
   interests,
-  variant = "secondary",
+  // variant = "secondary",
   highlighted = false,
 }: InterestsTagsProps) {
   return (

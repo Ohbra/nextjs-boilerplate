@@ -107,13 +107,14 @@ export async function signup(formData: FormData) {
         .ilike('course_name', formattedCourseName)
         .single()
 
-      if (courseError || !stdProgramData) {
-        // console.error('Course selection error: ' + formattedCourseName, courseError)
-        const {data: res, error:resErr}  = await supabase.from('user_parent').delete().eq('user_id', user_id)
-        // delete the user from auth to prevent orphaned users
-        const {data: authData, error: authError} = await supabase.auth.admin.deleteUser(user_id)
-        return { success: false, message: 'Course not found' }
-      }
+      // DEPLOYMENT ISSUES-HAD TO COMMENT
+      // if (courseError || !stdProgramData) {
+      //   // console.error('Course selection error: ' + formattedCourseName, courseError)
+      //   const {data: res, error:resErr}  = await supabase.from('user_parent').delete().eq('user_id', user_id)
+      //   // delete the user from auth to prevent orphaned users
+      //   const {data: authData, error: authError} = await supabase.auth.admin.deleteUser(user_id)
+      //   return { success: false, message: 'Course not found' }
+      // }
 
       const { error: studentError } = await supabase.from('student').insert({
         student_id: user_id,

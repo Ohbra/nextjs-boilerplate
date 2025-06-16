@@ -2,8 +2,8 @@ import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 
 // !  use service role key only in server components
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+// const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+// const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
 // *Server Component client - To access Supabase from 
 // *Server Components, Server Actions, and Route Handlers, which run only on the server.

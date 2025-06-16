@@ -70,10 +70,10 @@ export default function Home() {
   // Debounce search query to prevent excessive API calls
   const debouncedSearchQuery = useDebouncedValue(searchQuery, 300);
 
-  // Data caching hooks - stable across renders
-  const fieldsCache = useDataCache<any>("fields", 2 * 60 * 1000);
-  const professorsCache = useDataCache<any>("professors", 2 * 60 * 1000);
-  const topicsCache = useDataCache<any>("topics", 1 * 60 * 1000);
+  // Data caching hooks - stable across renders(DEPLOYMENT ISSUES - HAD TO COMMENT OUT))
+  // const fieldsCache = useDataCache<any>("fields", 2 * 60 * 1000);
+  // const professorsCache = useDataCache<any>("professors", 2 * 60 * 1000);
+  // const topicsCache = useDataCache<any>("topics", 1 * 60 * 1000);
 
   // State
   const [expandedTopic, setExpandedTopic] = useState<number | null>(null);
@@ -314,136 +314,139 @@ export default function Home() {
   }, []);
 
   // Main data fetching effect - simplified dependencies
-  useEffect(() => {
-    // Cancel any ongoing request
-    if (abortControllerRef.current) {
-      abortControllerRef.current.abort();
-    }
-
-    // Create new abort controller
-    abortControllerRef.current = new AbortController();
-    const signal = abortControllerRef.current.signal;
-
-    async function fetchData() {
-      // Check cache first
-      let cachedData = null;
-      if (activeTab === "fields") {
-        cachedData = fieldsCache.getCachedData(cacheKey);
-      } else if (activeTab === "professors") {
-        cachedData = professorsCache.getCachedData(cacheKey);
-      } else if (activeTab === "list") {
-        cachedData = topicsCache.getCachedData(cacheKey);
-      }
-
-      if (cachedData && !signal.aborted) {
-        // Use cached data
-        if (activeTab === "fields") {
-          setFields(cachedData.fields || []);
-        } else if (activeTab === "professors") {
-          setProfessors(cachedData.professors || []);
-        } else if (activeTab === "list") {
-          setTopics(cachedData.topics || []);
-        }
-
-        setPagination({
-          totalPages: cachedData.totalPages || 0,
-          totalCount: cachedData.totalCount || 0,
-          currentPage: cachedData.currentPage || 1,
-        });
-
-        setIsLoading(false);
-        return;
-      }
-
-      // No cached data, fetch from server
-      setIsLoading(true);
-
-      try {
-        if (signal.aborted) return;
-
-        if (activeTab === "fields") {
-          const res = await getFieldsFromTags(
-            currentPage,
-            itemsPerPage,
-            debouncedSearchQuery
-          );
-          if (res.success && !signal.aborted) {
-            setFields(res.fields);
-            setPagination({
-              totalPages: res.totalPages,
-              totalCount: res.totalCount,
-              currentPage: res.currentPage,
-            });
-            fieldsCache.setCachedData(cacheKey, res);
-          }
-        } else if (activeTab === "professors") {
-          const res = await getProfessors(
-            currentPage,
-            itemsPerPage,
-            debouncedSearchQuery
-          );
-          if (res.success && !signal.aborted) {
-            setProfessors(res.professors);
-            setPagination({
-              totalPages: res.totalPages,
-              totalCount: res.totalCount,
-              currentPage: res.currentPage,
-            });
-            professorsCache.setCachedData(cacheKey, res);
-          }
-        } else if (activeTab === "list") {
-          let combinedSearchQuery = debouncedSearchQuery;
-          if (filters.length > 0) {
-            const filterQuery = filters.join(" ");
-            combinedSearchQuery = debouncedSearchQuery
-              ? `${debouncedSearchQuery} ${filterQuery}`
-              : filterQuery;
-          }
-
-          const studentId = undefined; // Replace with actual student ID when available
-          const res = await getTopics(
-            combinedSearchQuery,
-            currentPage,
-            itemsPerPage,
-            studentId
-          );
-          if (res.success && !signal.aborted) {
-            setTopics(res.topics);
-            setPagination({
-              totalPages: res.totalPages,
-              totalCount: res.totalCount,
-              currentPage: res.currentPage,
-            });
-            topicsCache.setCachedData(cacheKey, res);
-          }
-        }
-      } catch (error) {
-        if (!signal.aborted) {
-          console.error("Error fetching data:", error);
-        }
-      } finally {
-        if (!signal.aborted) {
-          setIsLoading(false);
-        }
-      }
-    }
-
-    fetchData();
-
-    return () => {
+  useEffect(
+    () => {
+      // Cancel any ongoing request
       if (abortControllerRef.current) {
         abortControllerRef.current.abort();
       }
-    };
-  }, [
-    // Only include the essential dependencies that should trigger a refetch
-    cacheKey, // This is stable and includes all the necessary parameters
-    activeTab,
-    currentPage,
-    debouncedSearchQuery,
-    filters.join(","), // Convert array to string to make it stable
-    itemsPerPage,
-  ]);
+
+      // Create new abort controller
+      abortControllerRef.current = new AbortController();
+      const signal = abortControllerRef.current.signal;
+
+      async function fetchData() {
+        // Check cache first
+        let cachedData = null;
+        if (activeTab === "fields") {
+          cachedData = fieldsCache.getCachedData(cacheKey);
+        } else if (activeTab === "professors") {
+          cachedData = professorsCache.getCachedData(cacheKey);
+        } else if (activeTab === "list") {
+          cachedData = topicsCache.getCachedData(cacheKey);
+        }
+
+        if (cachedData && !signal.aborted) {
+          // Use cached data
+          if (activeTab === "fields") {
+            setFields(cachedData.fields || []);
+          } else if (activeTab === "professors") {
+            setProfessors(cachedData.professors || []);
+          } else if (activeTab === "list") {
+            setTopics(cachedData.topics || []);
+          }
+
+          setPagination({
+            totalPages: cachedData.totalPages || 0,
+            totalCount: cachedData.totalCount || 0,
+            currentPage: cachedData.currentPage || 1,
+          });
+
+          setIsLoading(false);
+          return;
+        }
+
+        // No cached data, fetch from server
+        setIsLoading(true);
+
+        try {
+          if (signal.aborted) return;
+
+          if (activeTab === "fields") {
+            const res = await getFieldsFromTags(
+              currentPage,
+              itemsPerPage,
+              debouncedSearchQuery
+            );
+            if (res.success && !signal.aborted) {
+              setFields(res.fields);
+              setPagination({
+                totalPages: res.totalPages,
+                totalCount: res.totalCount,
+                currentPage: res.currentPage,
+              });
+              fieldsCache.setCachedData(cacheKey, res);
+            }
+          } else if (activeTab === "professors") {
+            const res = await getProfessors(
+              currentPage,
+              itemsPerPage,
+              debouncedSearchQuery
+            );
+            if (res.success && !signal.aborted) {
+              setProfessors(res.professors);
+              setPagination({
+                totalPages: res.totalPages,
+                totalCount: res.totalCount,
+                currentPage: res.currentPage,
+              });
+              professorsCache.setCachedData(cacheKey, res);
+            }
+          } else if (activeTab === "list") {
+            let combinedSearchQuery = debouncedSearchQuery;
+            if (filters.length > 0) {
+              const filterQuery = filters.join(" ");
+              combinedSearchQuery = debouncedSearchQuery
+                ? `${debouncedSearchQuery} ${filterQuery}`
+                : filterQuery;
+            }
+
+            const studentId = undefined; // Replace with actual student ID when available
+            const res = await getTopics(
+              combinedSearchQuery,
+              currentPage,
+              itemsPerPage,
+              studentId
+            );
+            if (res.success && !signal.aborted) {
+              setTopics(res.topics);
+              setPagination({
+                totalPages: res.totalPages,
+                totalCount: res.totalCount,
+                currentPage: res.currentPage,
+              });
+              topicsCache.setCachedData(cacheKey, res);
+            }
+          }
+        } catch (error) {
+          if (!signal.aborted) {
+            console.error("Error fetching data:", error);
+          }
+        } finally {
+          if (!signal.aborted) {
+            setIsLoading(false);
+          }
+        }
+      }
+
+      fetchData();
+
+      return () => {
+        if (abortControllerRef.current) {
+          abortControllerRef.current.abort();
+        }
+      };
+    },
+    [
+      // // Only include the essential dependencies that should trigger a refetch
+      // cacheKey, // This is stable and includes all the necessary parameters
+      // activeTab,
+      // currentPage,
+      // debouncedSearchQuery,
+      // filters.join(","), // Convert array to string to make it stable
+      // itemsPerPage,
+    ]
+  );
 
   return (
     <main className="min-h-screen bg-[#110833] text-white">
