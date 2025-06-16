@@ -71,9 +71,12 @@ export default function Home() {
   const debouncedSearchQuery = useDebouncedValue(searchQuery, 300);
 
   // Data caching hooks - stable across renders(DEPLOYMENT ISSUES - HAD TO COMMENT OUT))
-  // const fieldsCache = useDataCache<any>("fields", 2 * 60 * 1000);
-  // const professorsCache = useDataCache<any>("professors", 2 * 60 * 1000);
-  // const topicsCache = useDataCache<any>("topics", 1 * 60 * 1000);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const fieldsCache = useDataCache<any>("fields", 2 * 60 * 1000);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const professorsCache = useDataCache<any>("professors", 2 * 60 * 1000);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const topicsCache = useDataCache<any>("topics", 1 * 60 * 1000);
 
   // State
   const [expandedTopic, setExpandedTopic] = useState<number | null>(null);
