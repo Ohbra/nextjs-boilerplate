@@ -39,7 +39,7 @@ export default function GetStarted() {
                 isDesktop ? "text-5xl" : "text-2xl md:text-4xl"
               } font-bold mb-4`}
             >
-              Get started today
+              Get started today!
             </h1>
             <p
               className={`${
