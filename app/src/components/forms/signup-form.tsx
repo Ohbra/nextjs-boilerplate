@@ -22,7 +22,7 @@ export default function SignupForm() {
         router.push("/auth/login");
       } else {
         setError(
-          result.error || "Signup failed. Please check your information."
+          result.message || "Signup failed. Please check your information."
         );
       }
     } catch (err) {

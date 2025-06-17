@@ -47,7 +47,7 @@ describe('GET /api/recommendations', () => {
     findUniqueSpy.mockResolvedValueOnce(stubStudent)
     findManySpy.mockResolvedValueOnce([] as ProposalsReturn)
 
-    const res = await GET(new Request(`https://test/api/recommendations?studentId=${stubStudent.student_id}`))
+    const res = await GET(new Request(`https://test/api/recommendations?studentId=${stubStudent!.student_id}`))
 
     expect(findUniqueSpy).toHaveBeenCalled()
     expect(findManySpy).toHaveBeenCalled()
@@ -91,7 +91,7 @@ describe('GET /api/recommendations', () => {
     ] as unknown as ProposalsReturn
     findManySpy.mockResolvedValueOnce(stubProposals)
 
-    const res = await GET(new Request(`https://test/api/recommendations?studentId=${stubStudent.student_id}`))
+    const res = await GET(new Request(`https://test/api/recommendations?studentId=${stubStudent!.student_id}`))
     expect(res.status).toBe(200)
 
     const { theses, professors } = (await res.json()) as Recommendations
